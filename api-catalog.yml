@@ -30,4 +30,32 @@ management:
   endpoints:
     web:
       exposure:
-        include: health, info
+        include: circuitbreakers,circuitbreakerevents,health,info
+  health: 
+    circuitbreakers:
+      enabled: true
+  endpoint:
+    health:
+      showh-details: always
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      subscription:
+        allowHealthIndicatorToFail: false
+        registerHealthIndicator: true
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize:  5
+        failureRateThreshold: 50
+        waitDurationInOpenState : 15000
+        permittedNumberOfCallsInHalfOpenState : 3
+        automaticTransitionFromOpenToHalfOpenEnabled : true
+  retry: 
+    instances: 
+      subscription: 
+        maxAttempts: 3
+        waitDuration: 1000
+        retryExceptions[0]: 
+          feign: FeignException$InternalServerError
+
+
