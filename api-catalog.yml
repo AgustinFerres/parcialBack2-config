@@ -56,5 +56,5 @@ resilience4j:
         maxAttempts: 3
         waitDuration: 1000
         retryExceptions:
-                - 'feign.FeignException$InternalServerError
+                - feign.FeignException$InternalServerError
 
