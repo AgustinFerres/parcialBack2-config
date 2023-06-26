@@ -24,37 +24,32 @@ spring:
         defaultZone: http://localhost:8761/eureka/
 
 management:
-  info:
-    env:
-      enabled: true
-  endpoints:
-    web:
-      exposure:
-        include: circuitbreakers,circuitbreakerevents,health,info, ratelimiters, metrics
-  health: 
-    circuitbreakers:
-      enabled: true
-  endpoint:
+    endpoint:
+        health:
+            show-details: always
+    endpoints:
+        web:
+            exposure:
+                include: circuitbreakers,circuitbreakerevents,health,info,ratelimiters,metrics
     health:
-      showh-details: always
-
+        circuitbreakers:
+            enabled: true
 resilience4j:
-  circuitbreaker:
-    instances:
-      subscription:
-        allowHealthIndicatorToFail: false
-        registerHealthIndicator: true
-        slidingWindowType: COUNT_BASED
-        slidingWindowSize:  5
-        failureRateThreshold: 50
-        waitDurationInOpenState : 15000
-        permittedNumberOfCallsInHalfOpenState : 3
-        automaticTransitionFromOpenToHalfOpenEnabled : true
-  retry: 
-    instances: 
-      subscription: 
-        maxAttempts: 3
-        waitDuration: 1000
-        retryExceptions:
+    circuitbreaker:
+        instances:
+            subscription:
+                allowHealthIndicatorToFail: false
+                automaticTransitionFromOpenToHalfOpenEnabled: true
+                failureRateThreshold: 50
+                permittedNumberOfCallsInHalfOpenState: 3
+                registerHealthIndicator: true
+                slidingWindowSize: 5
+                slidingWindowType: COUNT_BASED
+                waitDurationInOpenState: 15000
+    retry:
+        instances:
+            subscription:
+                maxAttempts: 3
+                retryExceptions:
                 - feign.FeignException$InternalServerError
-
+                waitDuration: 1000
