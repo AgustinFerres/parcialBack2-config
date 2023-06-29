@@ -23,16 +23,6 @@ spring:
       serviceUrl:
         defaultZone: http://localhost:8761/eureka/
 
-  eureka:
-    instance:
-      hostname: localhost
-      instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-    client:
-      registerWithEureka: true
-      fetchRegistry: true
-      serviceUrl:
-        defaultZone: http://localhost:8761/eureka/
-
 management:
   info:
     env:
