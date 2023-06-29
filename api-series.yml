@@ -3,6 +3,9 @@ server:
 spring:
   application:
     name: series-service
+  mongodb:
+    embeded:
+      version: 4.0.2
   zipkin:
     baseUrl: http://localhost:9411/
   data:
